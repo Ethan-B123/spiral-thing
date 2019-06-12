@@ -1,0 +1,22 @@
+body {
+  font-family: "Raleway", sans-serif;
+  background: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+body > section {
+  background-color: #fff;
+  padding: 5px 0;
+}
+
+input[type="text"] {
+  width: 300px;
+}
+
+.form-box {
+  box-sizing: border-box;
+  padding: 5px 15px;
+}

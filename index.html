@@ -6,8 +6,25 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>TypeScript</title>
     <script src="./dist/bundle.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+    <link rel="stylesheet" href="./dist/main.css">
   </head>
   <body>
-    <canvas width="600" height="600"></canvas>
+    <section>
+      <canvas width="600" height="600"></canvas>
+      <div>
+        <form id="set-angle" class="pure-form form-box">
+          <input type="text" id="text" placeholder="# of outer ring rotations" />
+          <button type="submit">Set Angle</button>
+        </form>
+        <div class="form-box">
+          <button id="play">play</button>
+          <button id="pause">pause</button>
+          <button id="reverse">reverse</button>
+          <button id="tick">tick</button>
+        </div>
+      </div>
+    </section>
   </body>
 </html>

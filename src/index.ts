@@ -1,53 +1,45 @@
 // https://www.reddit.com/r/perfectloops/comments/bzbgh4/i_cant_stop_watching/
 
-import Ring from "./Ring";
+import Game from "./Game";
 
 const DISPLAY_RADIUS = 250;
 const RING_COUNT = 100;
-const ROT_FACTOR = 1.04;
+const ROT_FACTOR = 1; // turns out this is dumb
 const ROT_SPEED = Math.PI / 180;
 
 document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.querySelector("canvas");
-  const ctx = canvas.getContext("2d");
+  const game = new Game(
+    canvas,
+    DISPLAY_RADIUS,
+    ROT_FACTOR,
+    ROT_SPEED,
+    RING_COUNT,
+    0
+  );
 
-  const rings: Ring[] = [];
-
-  for (let i = 1; i <= RING_COUNT; i++) {
-    const radius = (i / RING_COUNT) * DISPLAY_RADIUS;
-    const rotationFactor = (i / RING_COUNT) * ROT_FACTOR;
-    rings.push(new Ring(radius, rotationFactor, { x: 300, y: 300 }));
-  }
-
-  rings.forEach(ring => {
-    ring.draw(ctx);
+  const input: HTMLInputElement = document.querySelector("#text");
+  document.querySelector("#set-angle").addEventListener("submit", (e) => {
+    e.preventDefault();
+    let value = parseFloat(input.value) * Math.PI * 2;
+    if (isNaN(value)) {
+      input.value = "";
+    } else {
+      game.setAngle(value);
+      game.draw();
+    }
   });
-
-  let currentAng: number = 0;
-  loop();
-
-  function loop() {
-    requestAnimationFrame(loop);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    currentAng += ROT_SPEED;
-    rings.forEach(ring => {
-      ring.update(currentAng);
-    });
-    rings.forEach(ring => {
-      ring.draw(ctx);
-    });
-    ctx.save();
-    ctx.beginPath();
-    ctx.moveTo(300, 300);
-    rings
-      .map(ring => ring.pointPos)
-      .forEach(({ x, y }) => {
-        ctx.lineTo(x, y);
-      });
-    ctx.moveTo(300, 300);
-    ctx.closePath();
-    ctx.strokeStyle = "#000f";
-    ctx.stroke();
-    ctx.restore();
-  }
+  document.querySelector("#play").addEventListener("click", () => {
+    game.play();
+  });
+  document.querySelector("#pause").addEventListener("click", () => {
+    game.pause();
+  });
+  document.querySelector("#reverse").addEventListener("click", () => {
+    game.reverse();
+  });
+  document.querySelector("#tick").addEventListener("click", () => {
+    game.tick();
+    game.draw();
+  });
 });
