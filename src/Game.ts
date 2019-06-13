@@ -24,6 +24,10 @@ class Game {
     this.play();
   }
 
+  setSpeed(radiansPerFrame: number) {
+    this.ringGroup.setRotSpeed(radiansPerFrame);
+  }
+
   setAngle(angle: number) {
     this.ringGroup.setAngle(angle);
   }

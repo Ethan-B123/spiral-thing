@@ -26,15 +26,15 @@ class Ring {
 
   draw(ctx: CanvasRenderingContext2D): void {
     ctx.save();
-    ctx.strokeStyle = "#0005";
+    ctx.strokeStyle = "#f0f0f0";
     ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2);
     ctx.closePath();
     ctx.stroke();
-    ctx.strokeStyle = "#f003";
+    ctx.strokeStyle = "#000f";
     ctx.beginPath();
-    ctx.arc(this.pointPos.x, this.pointPos.y, 2, 0, Math.PI * 2);
+    ctx.arc(this.pointPos.x, this.pointPos.y, 1, 0, Math.PI * 2);
     ctx.closePath();
     ctx.stroke();
     ctx.restore();

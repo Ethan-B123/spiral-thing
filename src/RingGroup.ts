@@ -12,7 +12,7 @@ class RingGroup {
     this.createRings();
   }
 
-  get currentAng () {
+  get currentAng() {
     return this._currentAng;
   }
 
@@ -34,6 +34,10 @@ class RingGroup {
   setAngle(newAngleRad: number) {
     this._currentAng = newAngleRad;
     this.updateRings();
+  }
+
+  setRotSpeed(newRotSpeed: number) {
+    this.rotSpeed = newRotSpeed;
   }
 
   draw(canvas: HTMLCanvasElement) {
@@ -59,9 +63,10 @@ class RingGroup {
   private createRings(newRingCount: number = this.ringCount) {
     this.ringCount = newRingCount;
     this.rings = [];
-    for (let i = 1; i <= this.ringCount; i++) {
+    for (let i = 1; i < this.ringCount; i++) {
       const radius = (i / this.ringCount) * this.displayRadius;
-      const rotationFactor = (i / this.ringCount) * this.rotFactor;
+      const rotationFactor = // (i / this.ringCount) * this.rotFactor;
+        ((this.ringCount - i) / this.ringCount) * this.rotFactor;
       this.rings.push(new Ring(radius, rotationFactor, { x: 300, y: 300 }));
     }
   }

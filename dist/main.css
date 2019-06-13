@@ -16,6 +16,10 @@ input[type="text"] {
   width: 300px;
 }
 
+input[type="range"] {
+  width: 300px;
+}
+
 .form-box {
   box-sizing: border-box;
   padding: 5px 15px;

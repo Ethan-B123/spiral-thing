@@ -5,7 +5,7 @@ import Game from "./Game";
 const DISPLAY_RADIUS = 250;
 const RING_COUNT = 100;
 const ROT_FACTOR = 1; // turns out this is dumb
-const ROT_SPEED = Math.PI / 180;
+const ROT_SPEED = Math.PI / 22.5;
 
 document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.querySelector("canvas");
@@ -18,12 +18,13 @@ document.addEventListener("DOMContentLoaded", () => {
     0
   );
 
-  const input: HTMLInputElement = document.querySelector("#text");
-  document.querySelector("#set-angle").addEventListener("submit", (e) => {
+  const textInput: HTMLInputElement = document.querySelector("#text");
+  const slider: HTMLInputElement = document.querySelector("#speed");
+  document.querySelector("#set-angle").addEventListener("submit", e => {
     e.preventDefault();
-    let value = parseFloat(input.value) * Math.PI * 2;
+    let value = parseFloat(textInput.value) * Math.PI * 2;
     if (isNaN(value)) {
-      input.value = "";
+      textInput.value = "";
     } else {
       game.setAngle(value);
       game.draw();
@@ -41,5 +42,10 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelector("#tick").addEventListener("click", () => {
     game.tick();
     game.draw();
+  });
+  document.querySelector("#speed").addEventListener("input", (e) => {
+    const degPerFrame = parseFloat(slider.value)
+    const radiansPerFrame = degPerFrame * (Math.PI / 180)
+    game.setSpeed(radiansPerFrame)
   });
 });
