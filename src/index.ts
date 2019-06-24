@@ -3,11 +3,17 @@
 import Game from "./Game";
 
 const DISPLAY_RADIUS = 250;
-const RING_COUNT = 100;
-const ROT_FACTOR = 1; // turns out this is dumb
-const ROT_SPEED = Math.PI / 22.5;
+const RING_COUNT = 50;
+const ROT_FACTOR = 1;
+const ROT_SPEED = (Math.PI / 180) * 3.422;
 
 document.addEventListener("DOMContentLoaded", () => {
+  const rotationsTextElement: HTMLParagraphElement = document.querySelector(
+    "#angle-display"
+  );
+  const speedTextElement: HTMLParagraphElement = document.querySelector(
+    "#speed-display"
+  );
   const canvas = document.querySelector("canvas");
   const game = new Game(
     canvas,
@@ -15,11 +21,15 @@ document.addEventListener("DOMContentLoaded", () => {
     ROT_FACTOR,
     ROT_SPEED,
     RING_COUNT,
-    0
+    0,
+    (rotations: number) => {
+      const truncated = Math.floor(rotations * 1000) / 1000;
+      rotationsTextElement.innerText = `${truncated}`;
+    }
   );
 
   const textInput: HTMLInputElement = document.querySelector("#text");
-  const slider: HTMLInputElement = document.querySelector("#speed");
+  const speedSlider: HTMLInputElement = document.querySelector("#speed");
   document.querySelector("#set-angle").addEventListener("submit", e => {
     e.preventDefault();
     let value = parseFloat(textInput.value) * Math.PI * 2;
@@ -43,9 +53,11 @@ document.addEventListener("DOMContentLoaded", () => {
     game.tick();
     game.draw();
   });
-  document.querySelector("#speed").addEventListener("input", (e) => {
-    const degPerFrame = parseFloat(slider.value)
-    const radiansPerFrame = degPerFrame * (Math.PI / 180)
-    game.setSpeed(radiansPerFrame)
+  document.querySelector("#speed").addEventListener("input", e => {
+    const degPerFrame = parseFloat(speedSlider.value) ** 2;
+    const radiansPerFrame = degPerFrame * (Math.PI / 180);
+    const truncated = Math.floor(degPerFrame * 1000) / 1000;
+    speedTextElement.innerText = `${truncated}`;
+    game.setSpeed(radiansPerFrame);
   });
 });

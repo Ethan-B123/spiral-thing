@@ -2,6 +2,7 @@ import Ring from "./Ring";
 
 class RingGroup {
   private rings: Ring[] = [];
+  private center: vector = { x: 300, y: 300 };
   constructor(
     private displayRadius: number,
     private rotFactor: number,
@@ -14,6 +15,17 @@ class RingGroup {
 
   get currentAng() {
     return this._currentAng;
+  }
+
+  updateRingSize(newCanvasSize: vector) {
+    this.center = {
+      x: newCanvasSize.x / 2,
+      y: newCanvasSize.y / 2
+    };
+    const minDim =
+      newCanvasSize.x < newCanvasSize.y ? newCanvasSize.x : newCanvasSize.y;
+    this.displayRadius = minDim / 2 - 3;
+    this.createRings();
   }
 
   tick() {
@@ -47,13 +59,13 @@ class RingGroup {
 
     ctx.save();
     ctx.beginPath();
-    ctx.moveTo(300, 300);
+    ctx.moveTo(this.rings[0].pointPos.x, this.rings[0].pointPos.y);
     this.rings
       .map(ring => ring.pointPos)
       .forEach(({ x, y }) => {
         ctx.lineTo(x, y);
       });
-    ctx.moveTo(300, 300);
+    ctx.moveTo(this.rings[0].pointPos.x, this.rings[0].pointPos.y);
     ctx.closePath();
     ctx.strokeStyle = "#000f";
     ctx.stroke();
@@ -67,11 +79,13 @@ class RingGroup {
       const radius = (i / this.ringCount) * this.displayRadius;
       const rotationFactor = // (i / this.ringCount) * this.rotFactor;
         ((this.ringCount - i) / this.ringCount) * this.rotFactor;
-      this.rings.push(new Ring(radius, rotationFactor, { x: 300, y: 300 }));
+      this.rings.push(
+        new Ring(radius, rotationFactor, { x: this.center.x, y: this.center.y })
+      );
     }
   }
 
-  private updateRings() {
+  updateRings() {
     this.rings.forEach(ring => ring.update(this._currentAng));
   }
 }

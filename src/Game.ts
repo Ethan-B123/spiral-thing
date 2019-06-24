@@ -1,17 +1,21 @@
 import RingGroup from "./RingGroup";
+import { dimensions } from "./helperFunctions";
 
 class Game {
   private looping: boolean = false;
   private forward: boolean = true;
   private frame: number;
+  private resizeFrame: number;
   private ringGroup: RingGroup;
+  private dims: vector = { x: -1, y: -1 };
   constructor(
     private canvas: HTMLCanvasElement,
     displayRadius: number,
     rotFactor: number,
     rotSpeed: number,
     ringCount: number,
-    currentAng: number = 0
+    currentAng: number,
+    public onTick: (rotationCount: number) => void
   ) {
     this.loop = this.loop.bind(this);
     this.ringGroup = new RingGroup(
@@ -21,7 +25,28 @@ class Game {
       ringCount,
       currentAng
     );
+    this.resizeLoop();
     this.play();
+  }
+
+  resizeLoop = () => {
+    this.resizeFrame = requestAnimationFrame(this.resizeLoop);
+    this.draw();
+    this.resize();
+  };
+
+  get rotationCount() {
+    return this.ringGroup.currentAng / Math.PI / 2;
+  }
+
+  resize() {
+    const dims = dimensions(this.canvas);
+    if (dims.x === this.dims.x && dims.y === this.dims.y) return;
+    this.canvas.width = dims.x;
+    this.canvas.height = dims.y;
+    this.dims = dims;
+    this.ringGroup.updateRingSize(dims);
+    this.ringGroup.updateRings();
   }
 
   setSpeed(radiansPerFrame: number) {
@@ -30,6 +55,7 @@ class Game {
 
   setAngle(angle: number) {
     this.ringGroup.setAngle(angle);
+    this.onTick(this.rotationCount);
   }
 
   reverse() {
@@ -62,6 +88,7 @@ class Game {
     } else {
       this.ringGroup.untick();
     }
+    this.onTick(this.rotationCount);
   }
 
   draw() {
@@ -71,7 +98,6 @@ class Game {
   private loop() {
     this.frame = requestAnimationFrame(this.loop);
     this.tick();
-    this.draw();
   }
 }
 

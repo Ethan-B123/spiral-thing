@@ -1,8 +1,3 @@
-interface vector {
-  x: number;
-  y: number;
-}
-
 class Ring {
   currentAng: number = 0;
   pointPos: vector = { x: 0, y: 0 };
