@@ -20,9 +20,10 @@ class Ring {
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
+    const dpr = window.devicePixelRatio || 1;
     ctx.save();
     ctx.strokeStyle = "#f0f0f0";
-    ctx.lineWidth = 1;
+    ctx.lineWidth = dpr;
     ctx.beginPath();
     ctx.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2);
     ctx.closePath();

@@ -53,6 +53,7 @@ class RingGroup {
   }
 
   draw(canvas: HTMLCanvasElement) {
+    const dpr = window.devicePixelRatio || 1;
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     this.rings.forEach(ring => ring.draw(ctx));
@@ -67,6 +68,7 @@ class RingGroup {
       });
     ctx.moveTo(this.rings[0].pointPos.x, this.rings[0].pointPos.y);
     ctx.closePath();
+    ctx.lineWidth = dpr;
     ctx.strokeStyle = "#000f";
     ctx.stroke();
     ctx.restore();
