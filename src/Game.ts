@@ -41,6 +41,9 @@ class Game {
 
   resize() {
     const dims = dimensions(this.canvas);
+    const dpr = window.devicePixelRatio || 1;
+    dims.x *= dpr;
+    dims.y *= dpr;
     if (dims.x === this.dims.x && dims.y === this.dims.y) return;
     this.canvas.width = dims.x;
     this.canvas.height = dims.y;
