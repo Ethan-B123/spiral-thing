@@ -18,6 +18,11 @@ p {
   overflow: hidden;
 }
 
+canvas {
+  width: 600px;
+  height: 600px;
+}
+
 body > section {
   background-color: #fff;
   padding: 5px 0;
