@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>TypeScript</title>
     <script src="./dist/bundle.js"></script>
+    <link rel="stylesheet" href="./dist/reset.css">
     <link
       href="https://fonts.googleapis.com/css?family=Raleway:300,400,500&display=swap"
       rel="stylesheet"
@@ -21,24 +22,24 @@
   <body>
     <section>
       <canvas width="600" height="600"></canvas>
-      <div>
+      <div id="form-outer-container">
+      <div id="form-inner-container">
         <div class="form-box">
-          <p>Rotations: <span id="angle-display">0.000</span></p>
+          <h1>Spiral Thing</h1>
         </div>
         <form id="set-angle" class="pure-form form-box">
+          <p>Rotations: <span id="angle-display">0.000</span></p>
           <input type="text" id="text" placeholder="# of rotations" />
           <button type="submit">Set Rotations</button>
         </form>
-        <div class="form-box">
-          <button id="play">play</button>
-          <button id="pause">pause</button>
-          <button id="reverse">reverse</button>
-          <button id="tick">tick</button>
+        <div id="button-block" class="form-box">
+          <button class="control-button" id="play">play</button>
+          <button class="control-button" id="pause">pause</button>
+          <button class="control-button" id="reverse">reverse</button>
+          <button class="control-button" id="tick">tick</button>
         </div>
         <div class="form-box">
           <p>Speed: <span id="speed-display">3.422</span></p>
-        </div>
-        <div class="form-box">
           <input
             type="range"
             id="speed"
@@ -48,6 +49,10 @@
             step="0.05"
           />
         </div>
+        <div class="form-box">
+          <button id="fullscreen">fullscreen</button>
+        </div>
+      </div>
       </div>
     </section>
   </body>

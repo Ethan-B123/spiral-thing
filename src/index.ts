@@ -49,6 +49,9 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelector("#reverse").addEventListener("click", () => {
     game.reverse();
   });
+  document.querySelector("#fullscreen").addEventListener("click", () => {
+    openFullscreen(canvas)
+  })
   document.querySelector("#tick").addEventListener("click", () => {
     game.tick();
     game.draw();
@@ -61,3 +64,16 @@ document.addEventListener("DOMContentLoaded", () => {
     game.setSpeed(radiansPerFrame);
   });
 });
+
+
+function openFullscreen(elem: any) {
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.mozRequestFullScreen) { /* Firefox */
+    elem.mozRequestFullScreen();
+  } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { /* IE/Edge */
+    elem.msRequestFullscreen();
+  }
+}

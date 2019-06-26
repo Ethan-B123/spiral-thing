@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: "Raleway", sans-serif;
   background: #f0f0f0;
@@ -9,6 +13,27 @@ body {
 
 section {
   max-width: 100vw;
+  background-color: #fff;
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+#set-angle {
+  display: grid;
+  grid-template-areas: "a a" "b c";
+  grid-template-columns: 1fr 1fr;
+}
+#set-angle > p {
+  grid-area: a;
+}
+#text {
+  grid-area: b;
+}
+#set-angle > button {
+  grid-area: c;
+}
+.form-box + .form-box {
+  border-top: 1px solid #f0f0f0;
 }
 
 p {
@@ -21,24 +46,42 @@ p {
 canvas {
   width: 600px;
   height: 600px;
+  background: #fff;
 }
 
-body > section {
+h1 {
+  margin: 0;
+  text-align: center;
+}
+
+button {
   background-color: #fff;
-  padding: 5px 0;
+  transition: all 200ms linear;
+  display: block;
+  padding: 1em;
+  border: 1px solid #f0f0f0;
+  width: 100%;
 }
-
-input[type="text"] {
-  width: 300px;
+button:hover {
+  box-shadow: 0 0 0.5em 0 #0003;
+  border: 1px solid #00f5;
+  border-radius: 0.2em;
 }
-
-input[type="range"] {
-  width: 300px;
+button:active {
+  background: #f0f0f0;
+}
+button:focus {
+  border: 1px solid #00f5;
+}
+#button-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 0.6em 1em;
 }
 
 .form-box {
   box-sizing: border-box;
-  padding: 5px 15px;
+  padding: 1em 0.6em;
 }
 
 #angle-display,
@@ -46,20 +89,34 @@ input[type="range"] {
   font-family: monospace;
 }
 
+#speed,
+#text {
+  width: 100%;
+}
+
+#form-inner-container {
+  width: 400px;
+}
+
+@media screen and (max-width: 1000px) {
+  #form-inner-container {
+    width: 100%;
+  }
+  section {
+    grid-template-columns: auto;
+  }
+}
+
 @media screen and (max-width: 600px) {
+  #button-block {
+    grid-template-columns: 1fr;
+  }
+
   canvas {
     width: 100vw;
   }
 
   .form-box {
-    width: 100%;
-  }
-
-  input[type="text"] {
-    width: 100%;
-  }
-
-  input[type="range"] {
     width: 100%;
   }
 }
