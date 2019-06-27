@@ -52,6 +52,10 @@ class Game {
     this.ringGroup.updateRings();
   }
 
+  setRingCount(newRingCount: number) {
+    this.ringGroup.setRingCount(newRingCount)
+  }
+
   setSpeed(radiansPerFrame: number) {
     this.ringGroup.setRotSpeed(radiansPerFrame);
   }

@@ -14,6 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const speedTextElement: HTMLParagraphElement = document.querySelector(
     "#speed-display"
   );
+  const ringCountTextElement: HTMLParagraphElement = document.querySelector(
+    "#ring-count-display"
+  );
   const canvas = document.querySelector("canvas");
   const game = new Game(
     canvas,
@@ -30,6 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const textInput: HTMLInputElement = document.querySelector("#text");
   const speedSlider: HTMLInputElement = document.querySelector("#speed");
+  const ringCountSlider: HTMLInputElement = document.querySelector("#ring-count");
   document.querySelector("#set-angle").addEventListener("submit", e => {
     e.preventDefault();
     let value = parseFloat(textInput.value) * Math.PI * 2;
@@ -62,6 +66,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const truncated = Math.floor(degPerFrame * 1000) / 1000;
     speedTextElement.innerText = `${truncated}`;
     game.setSpeed(radiansPerFrame);
+  });
+  document.querySelector("#ring-count").addEventListener("input", e => {
+    ringCountTextElement.innerText = ringCountSlider.value
+    game.setRingCount(parseInt(ringCountSlider.value))
   });
 });
 

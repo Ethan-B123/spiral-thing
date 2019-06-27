@@ -89,6 +89,7 @@ button:focus {
   font-family: monospace;
 }
 
+#ring-count,
 #speed,
 #text {
   width: 100%;
